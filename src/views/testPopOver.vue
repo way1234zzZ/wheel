@@ -26,16 +26,5 @@
   </div>
 </template>
 <script>
-import gButton from '@/components/button.vue'
-import gPopOver from '@/components/popOver.vue'
-export default {
-  name: 'testPopOver',
-  components: {
-    gPopOver,
-    gButton
-  },
-  methods: {
 
-  }
-}
 </script>

@@ -41,16 +41,7 @@
     </g-row>
   </div>
 </template>
-<script>
-import gRow from '@/components/row.vue'
-import gCol from '@/components/col.vue'
-export default {
-  components: {
-    gRow,
-    gCol
-  }
-}
-</script>
+
 <style lang="scss" scoped>
 img {
   max-width: 100%;

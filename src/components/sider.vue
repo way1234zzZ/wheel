@@ -33,7 +33,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: transform 0.5s;
+  transition: all 0.3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   margin-left: -200px;

@@ -117,17 +117,13 @@ export default {
     },
     open() {
       this.visible = true
-      console.log('打开')
       setTimeout(() => {
         this.postionContent();
-        console.log('添加事件')
         document.addEventListener('click', this.onClickDocument)
       })
     },
     close() {
       this.visible = false
-      console.log('关闭')
-      console.log('移除事件')
       document.removeEventListener('click', this.onClickDocument)
     },
     onClick(event) {

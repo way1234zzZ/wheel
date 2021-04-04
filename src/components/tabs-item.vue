@@ -32,7 +32,7 @@ export default {
   inject: ['eventBus'],
   created() {
     // console.log('爷爷给item的eventbus')
-    //收到tabs发出的谁被选中了
+    //所有tabsitem都会收到update:selected事件，然后每个tabsitem判断是不是自己
     this.eventBus.$on('update:selected', (name) => {
       if (name === this.name) {
         this.active = true;

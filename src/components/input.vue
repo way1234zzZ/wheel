@@ -4,7 +4,7 @@
   <div class="wrapper" :class="{error}">
     <!-- :value为 input原有属性value -->
     <!-- $event当前事件对象，浏览器赋予 -->
-    <input :value="value" type="text" :disabled="disabled" :readonly="readonly" @change="$emit('change',$event.target.value,'hi')" @input="$emit('input',$event.target.value,'hi')" @focus="$emit('focus',$event.target.value,'hi')"
+    <input :value="value" type="text" :disabled="disabled" :readonly="readonly" @change="$emit('change',$event.target.value,'hi3')" @input="$emit('input',$event.target.value,'hi1')" @focus="$emit('focus',$event.target.value,'hi2')"
       @blur="$emit('blur',$event.target.value,'hi')">
     <!-- 用template取代div 否则要给div加样式 -->
     <template v-if="error">

@@ -31,6 +31,7 @@ export default {
     }
   },
   mounted() {
+    //默认选中事件
     this.$children.forEach((vm) => {
       if (this.$children.length === 0) {
         //如果console console.warn存在 有的浏览器不存在

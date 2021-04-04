@@ -50,12 +50,12 @@
       </div>
 
       <div class="box">
-        <g-input value="王" v-model="message"></g-input>
+        <g-input v-model="message"></g-input>
         <p>{{message}}</p>
         <button @click="message+=1">+1</button>
       </div>
       <div class="box">
-        <g-input value="张三"></g-input>
+        <g-input value="张三" error="姓名不规范"></g-input>
         <!-- 如果不加冒号 disabled绑定的是字符串不是变量 -->
         <g-input value="李四" :disabled="true" :readonly="true"></g-input>
         <g-input value="李四" readonly></g-input>
@@ -68,17 +68,19 @@
       <!-- <router-view /> -->
     </div>
     <!-- yyy监听的是g-tab的事件 如果要触发eventbus的事件 触发的应该是new Vue的事件，所以要在tabs里emit -->
-    <g-tabs :selected.sync="selectedTab" @update:selected="yyy">
+    <!-- <g-tabs :selected.sync="selectedTab" @update:selected="yyy"> -->
+    <g-tabs :selected="selectedTab">
+      <!-- 这两个语法相同 -->
+      <!-- <g-tabs-head selected="selectedTab" @update:selected="selectedTab = $event"> -->
       <!-- 自组件不能改父组件的数据，所以这里要添加事件 -->
       <!-- 语法糖 -->
       <g-tabs-head>
         <template slot="actions">
           <button>设置</button>
         </template>
-        <!-- 这两个语法相同 -->
-        <!-- <g-tabs-head selected="selectedTab" @update:selected="selectedTab = $event"> -->
-        <g-tabs-item name="woman" disabled>
-          <g-icon name="settings"></g-icon>美女
+
+        <g-tabs-item name="education" disabled>
+          <g-icon name="settings"></g-icon>教育
         </g-tabs-item>
         <g-tabs-item name="finance">
           财经
@@ -88,8 +90,8 @@
         </g-tabs-item>
       </g-tabs-head>
       <g-tabs-body>
-        <g-tabs-panel name="woman">
-          美女相关资讯
+        <g-tabs-panel name="education">
+          教育相关资讯
         </g-tabs-panel>
         <g-tabs-panel name="finance">
           财经相关资讯
@@ -99,8 +101,9 @@
         </g-tabs-panel>
       </g-tabs-body>
     </g-tabs>
+    {{selectedTab}}
 
-    <g-collapse :selected.sync="selectedNums" single>
+    <g-collapse :selected="selectedNums">
       <g-collapse-item title="标题1" name="1">内容1</g-collapse-item>
       <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
       <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
@@ -127,23 +130,9 @@
 </template>
 
 <script>
-import gButton from '@/components/button.vue'
-import buttonGroup from '@/components/button-group.vue'
-import gInput from '@/components/input.vue'
-import gRow from '@/components/row.vue'
-import gCol from '@/components/col.vue'
-import gTabs from '@/components/tabs.vue'
-import gTabsBody from '@/components/tabs-body.vue'
-import gTabsHead from '@/components/tabs-head.vue'
-import gTabsItem from '@/components/tabs-item.vue'
-import gTabsPanel from '@/components/tabs-panel.vue'
-import gIcon from '@/components/icon.vue'
-import gCollapse from '@/components/collapse.vue'
-import gCollapseItem from '@/components/collapse-item.vue'
 //import gCascader from '@/components/Cascader.vue'
 import db from '@/assets/js/db.js'
-import gSlides from '@/components/slides.vue'
-import gSlidesItem from '@/components/slidesItem.vue'
+
 // function ajax(parent_id = 0, success) {
 //   let id = setTimeout(() => {
 //     let result = db.filter((item) => item.parent_id == parent_id)
@@ -171,24 +160,7 @@ function ajax(parent_id = 0) {
 }
 export default {
   name: 'tools',
-  components: {
-    gButton,
-    buttonGroup,
-    gInput,
-    gRow,
-    gCol,
-    gTabs,
-    gTabsBody,
-    gTabsHead,
-    gTabsItem,
-    gTabsPanel,
-    gIcon,
-    gCollapse,
-    gCollapseItem,
-    //gCascader,
-    gSlides,
-    gSlidesItem
-  },
+
   data() {
     return {
       selected: '1',
