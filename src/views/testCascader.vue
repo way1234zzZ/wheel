@@ -4,7 +4,7 @@
     </g-cascader> -->
     <g-cascader
       :source.sync="source"
-      popover-height="200"
+      popoverHeight="200"
       :selected.sync="selected"
       :loadData="loadData"
     >

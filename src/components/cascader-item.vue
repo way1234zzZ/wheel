@@ -1,5 +1,5 @@
 <template>
-  <div class="cascader-item" :style="{ height: height }">
+  <div class="cascader-item" :style="` height: ${height}px `">
     <div class="left">
       <div
         class="label"
@@ -135,6 +135,7 @@ export default {
     display: flex;
     align-items: center;
     cursor: pointer;
+    white-space: nowrap;
     &:hover {
       background-color: #eee;
     }
