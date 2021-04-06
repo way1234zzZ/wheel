@@ -59,25 +59,51 @@ export default {
     onUpdateSelected(newSelected) {
       this.$emit("update:selected", newSelected);
       let lastItem = newSelected[newSelected.length - 1];
-      let dfs = (arr, id) => {
+      // let dfs = (arr, id) => {
+      //   if (!arr) {
+      //     return;
+      //   }
+      //   for (let i = 0; i < arr.length; i++) {
+      //     if (arr[i].id === id) {
+      //       return arr[i];
+      //     }
+      //     if (dfs(arr[i].children, id)) {
+      //       return dfs(arr[i].children, id);
+      //     }
+      //   }
+      //   return null;
+      // };
+      let bfs = (arr, id) => {
         if (!arr) {
           return;
         }
+        let queue = [];
         for (let i = 0; i < arr.length; i++) {
-          if (arr[i].id === id) {
-            return arr[i];
-          }
-          if (dfs(arr[i].children, id)) {
-            return dfs(arr[i].children, id);
+          queue.push(arr[i]);
+        }
+        while (queue.length !== 0) {
+          console.log("hi");
+          let length = queue.length;
+          console.log(length);
+          while (length > 0) {
+            let temp = queue.shift();
+            if (temp.id === id) {
+              return temp;
+            }
+            if (temp.children && temp.children.length > 0) {
+              for (let i = 0; i < temp.children.length; i++) {
+                queue.push(temp.children[i]);
+              }
+            }
+            length--;
           }
         }
-        return null;
       };
       let updateSource = (result) => {
         this.loadingItem = {};
         let copy = JSON.parse(JSON.stringify(this.source));
         console.log(copy);
-        let toUpdate = dfs(copy, lastItem.id);
+        let toUpdate = bfs(copy, lastItem.id);
         toUpdate.children = result;
         this.$emit("update:source", copy);
       };
