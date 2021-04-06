@@ -45,6 +45,7 @@ export default {
       timerId: undefined,
       startTouch: undefined,
       clickEvent: false,
+      touchEvent: false,
     };
   },
   computed: {
@@ -98,6 +99,7 @@ export default {
       });
     },
     onTouchStart(e) {
+      this.touchEvent = true;
       this.pause();
       this.startTouch = e.touches[0];
     },
@@ -158,7 +160,7 @@ export default {
         if (!this.lastSelectedIndex) {
           vm.reverse = false;
         }
-        if (this.timerId || this.clickEvent) {
+        if (this.timerId || this.clickEvent || this.touchEvent) {
           if (
             this.lastSelectedIndex === this.items.length - 1 &&
             this.selectedIndex === 0
