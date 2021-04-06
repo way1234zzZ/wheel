@@ -178,6 +178,7 @@ export default {
       });
     },
     playAutomatically() {
+      //防止重复动画
       if (this.timerId) {
         return;
       }
