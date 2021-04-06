@@ -8,11 +8,15 @@
         <g-button icon="settings">
           按钮
         </g-button>
-        <g-button :loading="flag" icon="download" iconPosition="right" @click="flag = !flag">
+        <g-button
+          :loading="flag"
+          icon="download"
+          iconPosition="right"
+          @click="flag = !flag"
+        >
           按钮
         </g-button>
         <button-group>
-
           <g-button icon="left">
             上一页
           </g-button>
@@ -38,21 +42,32 @@
           </g-row>
           <g-row gutter="20">
             <!-- 默认phone样式 -->
-            <g-col span="24" :pc="{span:4}" :narrowPc="{span:2}" :widePc="{span:1}">1</g-col>
-            <g-col span="24" :pc="{span:20}" :narrowPc="{span:22}" :widePc="{span:23}">2</g-col>
+            <g-col
+              span="24"
+              :pc="{ span: 4 }"
+              :narrowPc="{ span: 2 }"
+              :widePc="{ span: 1 }"
+              >1</g-col
+            >
+            <g-col
+              span="24"
+              :pc="{ span: 20 }"
+              :narrowPc="{ span: 22 }"
+              :widePc="{ span: 23 }"
+              >2</g-col
+            >
           </g-row>
           <g-row gutter="20">
             <g-col>1</g-col>
             <g-col>2</g-col>
           </g-row>
         </div>
-
       </div>
 
       <div class="box">
         <g-input v-model="message"></g-input>
-        <p>{{message}}</p>
-        <button @click="message+=1">+1</button>
+        <p>{{ message }}</p>
+        <button @click="message += 1">+1</button>
       </div>
       <div class="box">
         <g-input value="张三" error="姓名不规范"></g-input>
@@ -101,18 +116,14 @@
         </g-tabs-panel>
       </g-tabs-body>
     </g-tabs>
-    {{selectedTab}}
+    {{ selectedTab }}
 
     <g-collapse :selected="selectedNums">
       <g-collapse-item title="标题1" name="1">内容1</g-collapse-item>
       <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
       <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
     </g-collapse>
-    {{selectedNums}}
-
-    <!-- <g-cascader :source.sync="source" popover-height="200px" :selected.sync="selected" :load-data="loadData">
-
-    </g-cascader> -->
+    {{ selectedNums }}
 
     <g-slides :selected.sync="selected">
       <g-slides-item name="1">
@@ -126,52 +137,23 @@
       </g-slides-item>
     </g-slides>
   </div>
-
 </template>
 
 <script>
-//import gCascader from '@/components/Cascader.vue'
-import db from '@/assets/js/db.js'
-
-// function ajax(parent_id = 0, success) {
-//   let id = setTimeout(() => {
-//     let result = db.filter((item) => item.parent_id == parent_id)
-//     success(result)
-//   }, 3000)
-//   return id
-// }
-
-function ajax(parent_id = 0) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let result = db.filter((item) => item.parent_id == parent_id)
-      result.forEach(node => {
-        if (db.filter(item => item.parent_id === node.id).length > 0) {
-          node.isLeaf = false
-        } else {
-          node.isLeaf = true
-        }
-      })
-
-      resolve(result);
-    }, 300)
-
-  })
-}
 export default {
-  name: 'tools',
+  name: "tools",
 
   data() {
     return {
-      selected: '1',
+      selected: "1",
       //selected: [],
       // iconName: 'settings'
       flag: true,
-      message: 'hi',
+      message: "hi",
       selectedTab: "sports",
-      selectedNums: ['2', '1'],
-      source: []
-    }
+      selectedNums: ["2", "1"],
+      source: [],
+    };
   },
   mounted() {
     // console.log(this.$el.children)
@@ -179,24 +161,14 @@ export default {
     for (let node of this.$el.children) {
       //nodeName都是大写
       //console.log(node.nodeName)
-      if (node.nodeName.toLowerCase() !== 'button') {
-        console.warn(`g-button-group的子元素应该全是g-button，但是你写的是${node.nodeName.toLowerCase()}`)
+      if (node.nodeName.toLowerCase() !== "button") {
+        console.warn(
+          `g-button-group的子元素应该全是g-button，但是你写的是${node.nodeName.toLowerCase()}`
+        );
       }
     }
   },
-  created() {
-    // this.$toast("我是message")
-    // ajax(0, (result) => {
-    //   this.source = result
-    // })
-    ajax(0).then((result) => {
-      this.source = result
-      //console.log(result)
-    })
-      .catch((error) => {
-        console.log(error)
-      })
-  },
+  created() {},
   methods: {
     //xy说明形参可以随便取
     // inputchange(xxxxx, yyyyy) {
@@ -204,31 +176,18 @@ export default {
     //   console.log(yyyyy)
 
     // }
-    loadData({ id }, callBack) {
-      ajax(id).then(result => {
-        callBack(result)
-      })
-    },
-    // xxx() {
-    //   //console.log('xxx')
-    //   //console.log(this.selected)
-    //   ajax(this.selected[0].id).then(result => {
-    //     let lastLevelSelected = this.source.filter(item => item.id === this.selected[0].id)[0]
-    //     //lastLevelSelected.children = result
-    //     this.$set(lastLevelSelected, 'children', result)
-    //   })
-    // },
+
     yyy(data) {
-      console.log(data)
+      console.log(data);
     },
     showToast1() {
-      this.showToast('top')
+      this.showToast("top");
     },
     showToast2() {
-      this.showToast('middle')
+      this.showToast("middle");
     },
     showToast3() {
-      this.showToast('bottom')
+      this.showToast("bottom");
     },
 
     showToast(position) {
@@ -237,15 +196,15 @@ export default {
         position,
         autoClose: false,
         closeButton: {
-          text: '知道了',
+          text: "知道了",
           callBack: () => {
-            console.log('用户说他知道了')
-          }
-        }
-      })
-    }
-  }
-}
+            console.log("用户说他知道了");
+          },
+        },
+      });
+    },
+  },
+};
 </script>
 <style scoped>
 #app1 {

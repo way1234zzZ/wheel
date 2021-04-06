@@ -38,6 +38,11 @@ const routes = [
     name: 'testPopOver',
     component: () => import("@/views/testPopOver")
   },
+  {
+    path: '/testcascader',
+    name: 'testcascader',
+    component: () => import("@/views/testCascader")
+  },
 ]
 
 const router = new VueRouter({

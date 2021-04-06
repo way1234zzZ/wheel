@@ -23,10 +23,10 @@ import gIcon from '@/components/icon.vue'
 import gCollapse from '@/components/collapse.vue'
 import gCollapseItem from '@/components/collapse-item.vue'
 import gPopOver from '@/components/popOver.vue'
-//import gCascader from '@/components/Cascader.vue'
-
+import gCascader from '@/components/Cascader.vue'
 import gSlides from '@/components/slides.vue'
 import gSlidesItem from '@/components/slidesItem.vue'
+import gCascaderItem from '@/components/cascader-item.vue'
 Vue.config.productionTip = false
 //在原型上定义它们使其在每个 Vue 的实例中可用。原型扩展
 //侵入性太强，不知道原来有没有这个属性
@@ -61,3 +61,5 @@ Vue.component('g-collapse-item', gCollapseItem)
 Vue.component('g-slides', gSlides)
 Vue.component('g-slides-item', gSlidesItem)
 Vue.component('g-pop-over', gPopOver)
+Vue.component('g-cascader-item', gCascaderItem)
+Vue.component('g-cascader', gCascader)
