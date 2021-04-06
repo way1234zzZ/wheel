@@ -82,9 +82,7 @@ export default {
           queue.push(arr[i]);
         }
         while (queue.length !== 0) {
-          console.log("hi");
           let length = queue.length;
-          console.log(length);
           while (length > 0) {
             let temp = queue.shift();
             if (temp.id === id) {
@@ -102,7 +100,6 @@ export default {
       let updateSource = (result) => {
         this.loadingItem = {};
         let copy = JSON.parse(JSON.stringify(this.source));
-        console.log(copy);
         let toUpdate = bfs(copy, lastItem.id);
         toUpdate.children = result;
         this.$emit("update:source", copy);
