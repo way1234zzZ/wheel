@@ -125,7 +125,7 @@
     </g-collapse>
     {{ selectedNums }}
 
-    <g-slides :selected.sync="selected">
+    <g-slides :selected.sync="selected" :autoPlay="false">
       <g-slides-item name="1">
         <div class="slides">1</div>
       </g-slides-item>
@@ -145,7 +145,7 @@ export default {
 
   data() {
     return {
-      selected: "1",
+      selected: "",
       //selected: [],
       // iconName: 'settings'
       flag: true,

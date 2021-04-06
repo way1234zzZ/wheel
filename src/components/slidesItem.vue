@@ -1,37 +1,35 @@
 <template>
   <transition name="slide">
-    <div class="g-slides-item" v-if="visible" :class="{reverse}">
+    <div class="g-slides-item" v-if="visible" :class="{ reverse }">
       <slot></slot>
     </div>
   </transition>
 </template>
 <script>
 export default {
-  name: 'gSlidesItem',
+  name: "gSlidesItem",
   data() {
     return {
       selected: undefined,
-      reverse: false
-    }
+      reverse: false,
+    };
   },
   props: {
     name: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     visible() {
       // console.log(`我的name是${this.name}`)
       // console.log(`我的方向是${this.reverse ? '反向' : '正向'}`)
-      return this.selected === this.name
-    }
-  }
-}
+      return this.selected === this.name;
+    },
+  },
+};
 </script>
- <style lang="scss" scoped>
-.g-slides-item {
-}
+<style lang="scss" scoped>
 .slide-leave-active {
   position: absolute;
   left: 0;
