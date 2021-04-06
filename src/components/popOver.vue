@@ -2,7 +2,12 @@
   <div class="popOver" ref="popOver">
     <!-- 防止冒泡 点content不会取消 content之外的document才行 -->
     <!-- v-show只改变样式 v-if改变是否存在在dom树中 -->
-    <div ref="contentWrapper" class="content-wrapper" v-if="visible" :class="{[`position-${position}`]:true}">
+    <div
+      ref="contentWrapper"
+      class="content-wrapper"
+      v-if="visible"
+      :class="{ [`position-${position}`]: true }"
+    >
       <slot name="content" :close="close"></slot>
     </div>
     <span ref="triggerWrapper" class="triggerWrapper">
@@ -12,132 +17,140 @@
 </template>
 <script>
 export default {
-  name: 'gPopOver',
+  name: "gPopOver",
   data() {
     return {
-      visible: false
-    }
+      visible: false,
+    };
   },
   computed: {
     openEvent() {
-      if (this.trigger === 'click') {
-        return 'click'
+      if (this.trigger === "click") {
+        return "click";
       } else {
-        return 'mouseenter'
+        return "mouseenter";
       }
     },
     closeEvent() {
-      if (this.trigger === 'click') {
-        return 'click'
+      if (this.trigger === "click") {
+        return "click";
       } else {
-        return 'mouseleave'
+        return "mouseleave";
       }
-    }
+    },
   },
   mounted() {
-    this.addPopoverListeners()
-
+    this.addPopoverListeners();
   },
   beforeDestroy() {
     //@click自动删 原生要自己删
-    this.putBackContent()
-    this.removePopoverListeners()
+    this.putBackContent();
+    this.removePopoverListeners();
   },
   props: {
     position: {
       type: String,
-      default: 'top',
+      default: "top",
       validator(value) {
-        return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
-      }
+        return ["top", "bottom", "left", "right"].indexOf(value) >= 0;
+      },
     },
     trigger: {
       type: String,
-      default: 'click',
+      default: "click",
       validator(value) {
-        return ['click', 'hover'].indexOf(value) >= 0
-      }
-    }
+        return ["click", "hover"].indexOf(value) >= 0;
+      },
+    },
   },
   methods: {
     addPopoverListeners() {
-      if (this.trigger === 'click') {
-        this.$refs.popOver.addEventListener('click', this.onClick)
+      if (this.trigger === "click") {
+        this.$refs.popOver.addEventListener("click", this.onClick);
       } else {
-        this.$refs.popOver.addEventListener('mouseenter', this.open)
-        this.$refs.popOver.addEventListener('mouseleave', this.close)
+        this.$refs.popOver.addEventListener("mouseenter", this.open);
+        this.$refs.popOver.addEventListener("mouseleave", this.close);
       }
     },
     removePopoverListeners() {
-      if (this.trigger === 'click') {
-        this.$refs.popOver.removeEventListener('click', this.onClick)
+      if (this.trigger === "click") {
+        this.$refs.popOver.removeEventListener("click", this.onClick);
       } else {
-        this.$refs.popOver.removeEventListener('mouseenter', this.open)
-        this.$refs.popOver.removeEventListener('mouseleave', this.close)
+        this.$refs.popOver.removeEventListener("mouseenter", this.open);
+        this.$refs.popOver.removeEventListener("mouseleave", this.close);
       }
     },
     putBackContent() {
-      const { contentWrapper, popOver } = this.$refs
-      if (!contentWrapper) { return }
-      popOver.appendChild(contentWrapper)
+      const { contentWrapper, popOver } = this.$refs;
+      if (!contentWrapper) {
+        return;
+      }
+      popOver.appendChild(contentWrapper);
     },
     postionContent() {
       //把contentWrapper放到body的最后，解决父元素overflow:hidden的问题
-      const { contentWrapper } = this.$refs
-      document.body.appendChild(contentWrapper)
-      let { top, left, height, width } = this.$refs.triggerWrapper.getBoundingClientRect()
-      let { height: height2 } = contentWrapper.getBoundingClientRect()
+      const { contentWrapper } = this.$refs;
+      document.body.appendChild(contentWrapper);
+      let {
+        top,
+        left,
+        height,
+        width,
+      } = this.$refs.triggerWrapper.getBoundingClientRect();
+      let { height: height2 } = contentWrapper.getBoundingClientRect();
       let x = {
         top: {
           top: top + window.scrollY,
-          left: left + window.scrollX
+          left: left + window.scrollX,
         },
         bottom: {
           top: top + height + window.scrollY,
-          left: left + window.scrollX
+          left: left + window.scrollX,
         },
         left: {
           top: top + window.scrollY + (height - height2) / 2,
-          left: left + window.scrollX
+          left: left + window.scrollX,
         },
         right: {
           top: top + window.scrollY + (height - height2) / 2,
-          left: left + window.scrollX + width
+          left: left + window.scrollX + width,
         },
-      }
-      contentWrapper.style.left = x[this.position].left + 'px'
-      contentWrapper.style.top = x[this.position].top + 'px'
-
+      };
+      contentWrapper.style.left = x[this.position].left + "px";
+      contentWrapper.style.top = x[this.position].top + "px";
     },
     onClickDocument(e) {
-      if (this.$refs.triggerWrapper.contains(e.target) || this.visible && this.$refs.contentWrapper.contains(e.target)) {
-        return
+      if (
+        this.$refs.triggerWrapper.contains(e.target) ||
+        (this.visible && this.$refs.contentWrapper.contains(e.target))
+      ) {
+        return;
       }
-      this.close()
+      this.close();
     },
     open() {
-      this.visible = true
+      this.visible = true;
       setTimeout(() => {
         this.postionContent();
-        document.addEventListener('click', this.onClickDocument)
-      })
+        document.addEventListener("click", this.onClickDocument);
+      });
     },
     close() {
-      this.visible = false
-      document.removeEventListener('click', this.onClickDocument)
+      this.visible = false;
+      document.removeEventListener("click", this.onClickDocument);
     },
     onClick(event) {
       //contains只能判断dom关系
       if (this.$refs.triggerWrapper.contains(event.target)) {
         if (this.visible === true) {
-          this.close()
+          this.close();
         } else {
-          this.open()
+          this.open();
         }
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 $border-color: #333;

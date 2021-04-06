@@ -8,6 +8,7 @@ let onClickDocument = (e) => {
     }
   })
 }
+//一开始就监听 一直点一直加
 document.addEventListener('click', onClickDocument)
 let callbacks = []
 export default {

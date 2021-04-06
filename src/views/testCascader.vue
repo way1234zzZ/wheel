@@ -9,11 +9,18 @@
       :loadData="loadData"
     >
     </g-cascader>
+    <g-cascader
+      :source.sync="source"
+      popoverHeight="200"
+      :selected.sync="selected"
+      :loadData="loadData"
+    >
+    </g-cascader>
   </div>
 </template>
 <script>
 import db from "@/assets/js/db.js";
-
+import { removeListener } from "@/click-outside.js";
 // function ajax(parent_id = 0, success) {
 //   let id = setTimeout(() => {
 //     let result = db.filter((item) => item.parent_id == parent_id)
@@ -55,6 +62,9 @@ export default {
       ],
       selected: [],
     };
+  },
+  destroyed() {
+    removeListener();
   },
   created() {
     // ajax(0, (result) => {
